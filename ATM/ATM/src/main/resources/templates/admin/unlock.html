@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unlock</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <h2><i class="fas fa-lock-open"></i> Unlock</h2>
+        <form th:action="@{/admin/unlock}" method="post">
+            <div class="form-group">
+                <label><i class="fas fa-id-card"></i> Identification:</label>
+                <input type="text" name="identification" required>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-key"></i> New PIN:</label>
+                <input type="password" name="newPin" required>
+            </div>
+
+            <button type="submit" class="admin-btn">
+                <i class="fas fa-user-unlock"></i> Unlock Now
+            </button>
+        </form>
+
+        <div th:if="${message}" th:text="${message}" th:class="${error} ? 'message error':'message success'"></div>
+
+        <a th:href="@{/admin}" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Volver
+        </a>
+    </div>
+</body>
+</html>

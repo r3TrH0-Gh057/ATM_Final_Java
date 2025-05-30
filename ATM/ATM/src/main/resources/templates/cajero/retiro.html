@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Realizar Retiro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/styles/cajero.css}">
+</head>
+<body>
+    <div class="container">
+        <h2><i class="fas fa-money-bill-wave"></i> Realizar Retiro</h2>
+        
+        <div th:if="${message}" class="mensaje-exito" th:text="${message}"></div>
+        <div th:if="${error}" class="mensaje-error" th:text="${error}"></div>
+        
+        <form th:action="@{/atm/withdraw}" method="post">
+            <div class="form-group">
+                <label for="accountNumber"><i class="fas fa-credit-card"></i> Cuenta:</label>
+                <select name="accountNumber" id="accountNumber" required>
+                    <option th:each="account : ${accounts}" 
+                            th:value="${account.number}" 
+                            th:text="${account.number + ' - Saldo: $' + #numbers.formatDecimal(account.balance, 1, 2)}">
+                    </option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="amount"><i class="fas fa-coins"></i> Monto a retirar:</label>
+                <input type="number" name="amount" min="1" required>
+            </div>
+            
+            <input type="hidden" name="identification" th:value="${accounts[0].customer.identification}">
+            
+            <button type="submit">Retirar</button>
+        </form>
+        
+        <a th:href="@{/atm/menu}" class="btn-secondary"><i class="fas fa-arrow-left"></i> Volver al menú</a>
+    </div>
+</body>
+</html>
